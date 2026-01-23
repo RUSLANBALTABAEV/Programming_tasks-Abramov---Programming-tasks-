@@ -8,6 +8,7 @@ a₀ = cos²(1); a₁ = -sin²(1); aₖ = 2aₖ₋₁ - aₖ₋₂; k = 2, 3, ..
 Найти сумму квадратов тех чисел a₁, ..., a₁₀₀, которые не превосходят двух.
 """
 
+
 import math
 
 def compute_sequence_recursive(n):
