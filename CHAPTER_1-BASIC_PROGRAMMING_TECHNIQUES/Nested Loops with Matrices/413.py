@@ -29,7 +29,7 @@ def get_matrix():
     if choice == '1':
         while True:
             try:
-                n = int(input("Введите количество команд n (>0): "))
+                n = int(input("Введите количество команд n (> 0): "))
                 if n <= 0:
                     print("Число команд должно быть положительным.")
                     continue
