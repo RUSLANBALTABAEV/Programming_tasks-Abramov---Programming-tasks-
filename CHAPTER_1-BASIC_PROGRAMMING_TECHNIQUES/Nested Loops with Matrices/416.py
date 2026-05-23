@@ -29,7 +29,7 @@ def get_matrices():
     if choice == '1':
         while True:
             try:
-                n = int(input("Введите порядок матриц n (>0): "))
+                n = int(input("Введите порядок матриц n (> 0): "))
                 if n <= 0:
                     print("Порядок должен быть положительным.")
                     continue
