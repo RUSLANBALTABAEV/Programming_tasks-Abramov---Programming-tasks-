@@ -1,5 +1,6 @@
-1 191
-2 140
-3 92
-4 123
-5 171
+word21 word17 extra_282
+word21 word5 word23
+word27 word22 word18 extra_276 word9
+word22 extra_569 word11
+word21 word24 word8 word3
+word14 extra_559 word7 extra_636 word30
