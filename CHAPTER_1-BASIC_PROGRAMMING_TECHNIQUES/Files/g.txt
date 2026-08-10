@@ -1,5 +1,1 @@
-1 191
-2 201
-3 92
-4 92
-5 171
+word13 word29 word17 word3 word27 word16 word20 word9 word2 word26 word23 word5 word6 word19 word18 word25 word28 word8 word11 word14 word21 word15 word12 word10 word24 word7 word1 word22 word4 word30
