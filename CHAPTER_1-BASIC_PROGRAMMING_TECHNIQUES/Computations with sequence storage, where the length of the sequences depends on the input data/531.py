@@ -16,79 +16,92 @@
 """
 
 
-import random
+import math
+
+# ==========================================================
+# ЧАСТЬ 1: Структура для связного списка (из Рис. 25)
+# ==========================================================
+
+class Node:
+    """Узел односвязного списка."""
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+
+def build_linked_list(data):
+    """Строит связный список из списка чисел и возвращает голову и хвост."""
+    if not data:
+        return None, None
+    head = Node(data[0])
+    current = head
+    for val in data[1:]:
+        current.next = Node(val)
+        current = current.next
+    return head, current  # current здесь - это хвост (последний узел)
+
+def solve_linked_list(data):
+    """Решает задачу с использованием связного списка."""
+    head, tail = build_linked_list(data)
+    xn = tail.val  # Значение последнего узла
+    
+    # Проходим от начала до предпоследнего узла
+    result = []
+    current = head
+    while current is not tail:
+        result.append(current.val - xn)
+        current = current.next
+    return result, xn
 
 
-def get_sequence():
-    """Выбор способа ввода: ручной, случайный или готовые примеры."""
-    print("Задача 531: Вычисление последовательности разностей xi - xn")
-    print("Выберите способ ввода:")
-    print("1 — Ручной ввод")
-    print("2 — Случайная генерация")
-    print("3 — Готовые примеры")
+# ==========================================================
+# ЧАСТЬ 2: Решение с использованием стандартного списка
+# ==========================================================
 
-    while True:
-        choice = input("Ваш выбор (1/2/3): ").strip()
-        if choice in ('1', '2', '3'):
-            break
-        print("Ошибка: выберите 1, 2 или 3.")
+def solve_list(data):
+    """Решает задачу с использованием стандартного списка Python."""
+    xn = data[-1]
+    result = [xi - xn for xi in data[:-1]]
+    return result, xn
 
-    if choice == '1':
-        while True:
-            try:
-                n = int(input("Введите натуральное число n (>=2): "))
-                if n < 2:
-                    print("n должно быть >= 2.")
-                    continue
-                print(f"Введите {n} действительных чисел через пробел:")
-                data = list(map(float, input().split()))
-                if len(data) != n:
-                    print(f"Ожидалось {n} чисел, получено {len(data)}.")
-                    continue
-                return n, data
-            except ValueError:
-                print("Ошибка ввода. Повторите.")
 
-    elif choice == '2':
-        n = random.randint(2, 8)
-        # Генерируем случайные числа от -10 до 10
-        data = [round(random.uniform(-10, 10), 2) for _ in range(n)]
-        print(f"\nСгенерированы случайные числа: n = {n}")
-        print("Последовательность:", data)
-        return n, data
-
-    else:  # готовые примеры
-        examples = [
-            (5, [1.0, 2.5, -3.0, 4.7, 10.0]),
-            (4, [0.0, 0.0, 0.0, 100.0]),
-            (3, [1.1, 2.2, 3.3]),
-            (6, [5, 3, 7, -1, 0, 8]),
-        ]
-        print("\nГотовые примеры:")
-        for idx, (n_val, seq) in enumerate(examples, 1):
-            print(f"{idx}: n={n_val}, последовательность: {seq}")
-        while True:
-            try:
-                num = int(input("Выберите номер примера: "))
-                if 1 <= num <= len(examples):
-                    return examples[num-1]
-                else:
-                    print(f"Номер должен быть от 1 до {len(examples)}.")
-            except ValueError:
-                print("Ошибка ввода. Введите целое число.")
-
+# ==========================================================
+# ЧАСТЬ 3: Основная программа
+# ==========================================================
 
 def main():
-    n, data = get_sequence()
-    xn = data[-1]
-    # Вычисляем разности xi - xn для i = 1..n-1
-    differences = [xi - xn for xi in data[:-1]]
+    print("=== ЗАДАЧА 531: Вычисление последовательности разностей ===\n")
+    
+    try:
+        n = int(input("Введите количество чисел n (n >= 2): "))
+        if n < 2:
+            print("Ошибка: n должно быть больше или равно 2.")
+            return
+            
+        print(f"Введите {n} действительных чисел через пробел:")
+        data = list(map(float, input().split()))
+        
+        if len(data) != n:
+            print(f"Ошибка: введено {len(data)} чисел, а ожидается {n}.")
+            return
 
-    print("\nРезультаты:")
-    print(f"Исходная последовательность: {data}")
-    print(f"Последний элемент xn = {xn}")
-    print(f"Разности xi - xn: {differences}")
+        print("\nВыберите способ решения:")
+        print("1. Стандартный список (массив)")
+        print("2. Связный список (как на Рис. 25)")
+        choice = input("Ваш выбор (1/2): ").strip()
 
+        if choice == '1':
+            result, xn = solve_list(data)
+        elif choice == '2':
+            result, xn = solve_linked_list(data)
+        else:
+            print("Неверный выбор. Используется стандартный список.")
+            result, xn = solve_list(data)
+
+        print(f"\nПоследний элемент (xn) = {xn}")
+        print("Результат (xi - xn):", *result)
+        
+    except ValueError:
+        print("Ошибка: введите корректные числа.")
 
 if __name__ == "__main__":
     main()
